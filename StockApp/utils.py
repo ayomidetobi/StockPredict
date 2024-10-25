@@ -1,12 +1,19 @@
 from .models import StockHistoryData
 from datetime import datetime
 
+
+def validate_symbol(symbol):
+    if not symbol or not isinstance(symbol, str):
+        return False
+    return symbol.upper()
 def get_all_data_by_symbol(symbol):
-    if not isinstance(symbol, str):
-        raise ValueError("Symbol must be a string.")
+
+    validated_symbol = validate_symbol(symbol)
+    if not validated_symbol:
+        raise ValueError("Invalid symbol provided.")
     symbol = symbol.upper()
     try:
-        stock_data = StockHistoryData.objects.filter(symbol=symbol)
+        stock_data = StockHistoryData.objects.filter(symbol=symbol).order_by('timestamp')
         return stock_data
     except Exception as e:
         print(f"Failed to retrieve data for {symbol}: {e}")
@@ -14,15 +21,17 @@ def get_all_data_by_symbol(symbol):
 
 
 def get_closing_prices_by_symbol(symbol):
+
+    validated_symbol = validate_symbol(symbol)
+    if not validated_symbol:
+        raise ValueError("Invalid symbol provided.")
+    symbol = symbol.upper()
     try:
-        stock_data = get_all_data_by_symbol(symbol)
-        # Extract the 'close' field from each data entry
-        closing_prices = [float(data.close_price) for data in stock_data]
-        print(closing_prices)
+        stock_data = StockHistoryData.objects.filter(symbol=validated_symbol).order_by('-timestamp').values_list('close_price', flat=True)
+        closing_prices = [float(close_price) for close_price in stock_data]
         return closing_prices
     except Exception as e:
-        print(f"Failed to get closing prices for {symbol}: {e}")
-        raise e
+        print(f"Failed to retrieve data for {symbol}: {e}")
 
 
 import base64
@@ -62,9 +71,7 @@ def generate_backtest_insights(data):
 
 
 def generate_prediction_graph(historical, predicted):
-    """
-    Plot historical and predicted data on the same graph.
-    """
+
     img_data = io.BytesIO()
     fig, ax = plt.subplots()
 

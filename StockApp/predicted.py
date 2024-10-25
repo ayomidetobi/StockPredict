@@ -64,7 +64,7 @@ def store_predictions(symbol, predictions):
             'predicted_low_price': float(predictions['low'][i]['low']),
             'predicted_close_price': float(predictions['close'][i]['close']),
             'predicted_volume': float(predictions['volume'][i]['volume']),
-            'created_at': timezone.now()
+            'created_at': int(timezone.now().timestamp())
         }
 
         PredictedStockData.objects.update_or_create(
