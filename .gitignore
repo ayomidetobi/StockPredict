@@ -1,0 +1,6 @@
+/venv/
+/reports/
+/.pytest_cache/
+/.env
+.env
+venv
