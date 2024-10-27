@@ -31,8 +31,8 @@ def calculate_moving_average(prices, window_size):
     
     return moving_averages
 
-# def log_debug_info(day, current_price, short_ma_value, long_ma_value):
-    # print(f"Day {day}: Price={current_price}, Short MA={short_ma_value}, Long MA={long_ma_value}")
+def log_debug_info(day, current_price, short_ma_value, long_ma_value):
+    print(f"Day {day}: Price={current_price}, Short MA={short_ma_value}, Long MA={long_ma_value}")
 
 def execute_trade(prices, short_ma, long_ma, initial_investment):
     buy_signal = SELL_SIGNAL
@@ -48,7 +48,7 @@ def execute_trade(prices, short_ma, long_ma, initial_investment):
         short_ma_value = short_ma[i] if i >= len(short_ma) else None
         long_ma_value = long_ma[i] if i >= len(long_ma) else None
 
-        # log_debug_info(i + 1, current_price, short_ma_value, long_ma_value)
+        log_debug_info(i + 1, current_price, short_ma_value, long_ma_value)
 
         if long_ma_value is not None and current_price < long_ma_value and not buy_signal:
             shares_held, investment, buy_signal = buy_shares(investment, current_price)

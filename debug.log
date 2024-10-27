@@ -3,3 +3,27 @@ INFO 2024-10-28 00:03:38,508 autoreload C:\Users\HP\Documents\python\BHTrial\Sto
 INFO 2024-10-28 00:03:41,938 autoreload Watching for file changes with StatReloader
 INFO 2024-10-28 00:07:36,861 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Stocks\views.py changed, reloading.
 INFO 2024-10-28 00:07:38,893 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 00:10:21,201 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\views.py changed, reloading.
+INFO 2024-10-28 00:10:23,491 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 00:13:58,729 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\views.py changed, reloading.
+INFO 2024-10-28 00:14:00,675 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 00:14:28,355 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\views.py changed, reloading.
+INFO 2024-10-28 00:14:30,169 autoreload Watching for file changes with StatReloader
+WARNING 2024-10-28 00:15:15,925 log Not Found: /backtest/
+WARNING 2024-10-28 00:15:34,099 log Bad Request: /backtest/
+INFO 2024-10-28 00:22:19,267 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\views.py changed, reloading.
+INFO 2024-10-28 00:22:23,651 autoreload Watching for file changes with StatReloader
+ERROR 2024-10-28 00:22:41,858 views Error during backtest or PDF generation: argument should be a bytes-like object or ASCII string, not 'AsyncResult'
+ERROR 2024-10-28 00:22:42,067 log Internal Server Error: /backtest/
+INFO 2024-10-28 00:23:14,410 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\views.py changed, reloading.
+INFO 2024-10-28 00:23:17,037 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 00:25:00,608 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\views.py changed, reloading.
+INFO 2024-10-28 00:25:02,573 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 00:25:35,204 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\tasks.py changed, reloading.
+INFO 2024-10-28 00:25:37,306 autoreload Watching for file changes with StatReloader
+ERROR 2024-10-28 00:25:44,252 views Error during backtest or PDF generation: backtest_strategy() takes 4 positional arguments but 5 were given
+ERROR 2024-10-28 00:25:44,303 log Internal Server Error: /backtest/
+INFO 2024-10-28 00:26:02,511 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\tasks.py changed, reloading.
+INFO 2024-10-28 00:26:04,444 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 00:26:25,253 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\tasks.py changed, reloading.
+INFO 2024-10-28 00:26:28,816 autoreload Watching for file changes with StatReloader

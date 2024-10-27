@@ -13,7 +13,6 @@ from .tasks import backtest_strategy
 from StockApp.serializers import BacktestSerializer
 from StockApp.utils import get_closing_prices_by_symbol, validate_symbol
 from django.http import HttpResponse
-# from StockApp.Reports.views import generate_and_save_report
 import base64
 logger = logging.getLogger(__name__)
 
@@ -40,28 +39,60 @@ class BacktestView(APIView):
         
         return None
     def post(self, request):
-        serializer = BacktestSerializer(data=request.data)
-        validation_result = self.validate_backtest_input(request.data)
-        if isinstance(validation_result, Response):
-            return validation_result
-        if serializer.is_valid():
+        try:
+            serializer = BacktestSerializer(data=request.data)
+            validation_result = self.validate_backtest_input(request.data)
+            if isinstance(validation_result, Response):
+                return validation_result
+
+            if not serializer.is_valid():
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
             initial_investment = serializer.validated_data["initial_investment"]
-            
             short_moving_average = serializer.validated_data["short_moving_average"]
             long_moving_average = serializer.validated_data["long_moving_average"]
-            symbol = validate_symbol(serializer.validated_data["symbol"])
-            stock_prices = get_closing_prices_by_symbol(symbol)
-            print("stock_prices", stock_prices)
-            results = backtest_strategy(
-                stock_prices, short_moving_average, long_moving_average, initial_investment,symbol
-            )
-            task_result = generate_pdf_report(backtest_data=results)
-            pdf_bytes = base64.b64decode(task_result)
+            
+            try:
+                symbol = validate_symbol(serializer.validated_data["symbol"])
+                stock_prices = get_closing_prices_by_symbol(symbol)
+            except ValueError as e:
+                logger.error(f"Invalid stock symbol: {str(e)}")
+                return Response(
+                    {"error": f"Invalid stock symbol: {str(e)}"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            except Exception as e:
+                logger.error(f"Error fetching stock prices: {str(e)}")
+                return Response(
+                    {"error": "Unable to fetch stock data"}, 
+                    status=status.HTTP_503_SERVICE_UNAVAILABLE
+                )
+            if not stock_prices:
+                return Response(
+                    {"error": "No stock data available"}, 
+                    status=status.HTTP_404_NOT_FOUND
+                )
 
+            try:
+                results = backtest_strategy(
+                    stock_prices, short_moving_average, long_moving_average, initial_investment, symbol
+                )
+                task_result = generate_pdf_report.delay(backtest_data=results).get()
+                pdf_bytes = base64.b64decode(task_result)
+            except Exception as e:
+                logger.error(f"Error during backtest or PDF generation: {str(e)}")
+                return Response(
+                    {"error": "Failed to generate backtest report"}, 
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
 
             response = HttpResponse(pdf_bytes, content_type='application/pdf')
             response['Content-Disposition'] = f'attachment; filename="backtest_report_{symbol}.pdf"'
             return response
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        except Exception as e:
+            logger.error(f"Unexpected error in backtest view: {str(e)}")
+            return Response(
+                {"error": "An unexpected error occurred"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
