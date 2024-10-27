@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from .tasks import fetch_stock_data_from_alpha_api
 from StockApp.models import StockHistoryData
 from StockApp.serializers import StockHistoryDataSerializer
-from rest_framework.pagination import PageNumberPagination
+from StockApp.utils import StandardResultsSetPagination
 
 logger = logging.getLogger(__name__)
 CACHE_TIMEOUT_MINUTES = 5 * 60
@@ -22,10 +22,6 @@ ERROR_UNEXPECTED = "An unexpected error occurred."
 ERROR_SYMBOL_STRING = "Symbol must be a string."
 MESSAGE_DATA_PROCESSING = "Data fetching for {} is now being processed in the background."
 
-
-class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 100  
-    page_size_query_param = 'page_size' 
 
 
 class BaseStockView(APIView):
