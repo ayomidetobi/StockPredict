@@ -1,0 +1,5 @@
+INFO 2024-10-28 00:03:29,359 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 00:03:38,508 autoreload C:\Users\HP\Documents\python\BHTrial\Stock\settings.py changed, reloading.
+INFO 2024-10-28 00:03:41,938 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 00:07:36,861 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Stocks\views.py changed, reloading.
+INFO 2024-10-28 00:07:38,893 autoreload Watching for file changes with StatReloader
