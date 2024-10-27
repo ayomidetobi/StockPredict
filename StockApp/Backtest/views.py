@@ -8,10 +8,13 @@ from rest_framework.decorators import throttle_classes
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
-
+from StockApp.Reports.tasks import generate_pdf_report,generate_and_save_report,create_pdf_response
 from .tasks import backtest_strategy
 from StockApp.serializers import BacktestSerializer
 from StockApp.utils import get_closing_prices_by_symbol, validate_symbol
+from django.http import HttpResponse
+# from StockApp.Reports.views import generate_and_save_report
+import base64
 logger = logging.getLogger(__name__)
 
 CACHE_TIMEOUT_MINUTES = 5 * 60
@@ -52,7 +55,13 @@ class BacktestView(APIView):
             results = backtest_strategy(
                 stock_prices, short_moving_average, long_moving_average, initial_investment,symbol
             )
+            task_result = generate_pdf_report(backtest_data=results)
+            pdf_bytes = base64.b64decode(task_result)
 
-            return Response({"results": results}, status=status.HTTP_200_OK)
+
+            response = HttpResponse(pdf_bytes, content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="backtest_report_{symbol}.pdf"'
+            return response
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

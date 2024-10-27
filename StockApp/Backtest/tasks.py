@@ -95,8 +95,6 @@ def backtest_strategy(prices, moving_average_short, moving_average_long, initial
         return {"error": f"Price list for {symbol} is empty. Cannot perform backtest."}
     short_ma = [None] * (moving_average_short - 1) + calculate_moving_average(prices, moving_average_short)
     long_ma = [None] * (moving_average_long - 1) + calculate_moving_average(prices, moving_average_long)
-    print("short_ma", short_ma)
-    print("long_ma", long_ma)
     
     investment, num_buys, num_sells, max_drawdown, messages = execute_trade(
         prices, short_ma, long_ma, initial_investment

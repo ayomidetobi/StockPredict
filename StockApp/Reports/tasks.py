@@ -9,7 +9,9 @@ from matplotlib.backends.backend_pdf import PdfPages
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Image
-
+from celery import shared_task
+import json
+from django.http import HttpResponse
 # Constants
 FONT_HELVETICA = "Helvetica"
 FONT_HELVETICA_BOLD = "Helvetica-Bold"
@@ -161,8 +163,19 @@ def draw_messages(c, messages, start_y, height):
         logger.error(f"Error drawing messages: {e}")
         c.drawString(MARGIN_LEFT, start_y - 20, f"Error drawing messages: {str(e)}")
         return start_y - 40
+@shared_task
+def generate_pdf_report(backtest_data):
+    if isinstance(backtest_data, str):
+        try:
+            backtest_data = json.loads(backtest_data)
+        except json.JSONDecodeError as e:
+            logger.error(f"Error decoding JSON: {e}")
+            raise ValueError("Invalid JSON input")
 
-def generate_pdf_report(backtest_data, graph_image):
+    # Ensure backtest_data is a dict
+    if not isinstance(backtest_data, dict):
+        raise TypeError("backtest_data must be a dict or a JSON string")
+    graph_image = generate_backtest_insights(backtest_data)
     try:
         buffer = io.BytesIO()
         c = create_canvas(buffer, A4)
@@ -178,7 +191,10 @@ def generate_pdf_report(backtest_data, graph_image):
         c.showPage()
         c.save()
         buffer.seek(0)
-        return buffer
+        pdf_bytes = buffer.getvalue()
+        pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
+        
+        return pdf_base64
     except Exception as e:
         logger.error(f"Error generating PDF report: {e}")
         raise
@@ -198,3 +214,44 @@ def create_pdf_report(title, graph_image):
     except Exception as e:
         logger.error(f"Error creating PDF report: {e}")
         raise
+    
+PDF_SAVE_PATH = "reports/"
+BACKTEST_REPORT_FILENAME = "backtest_report.pdf"
+PREDICTION_REPORT_FILENAME = "prediction_report.pdf"
+HISTORICAL_DATA_DAYS = 30
+
+def ensure_directory_exists(path):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        
+def save_pdf(pdf_data, filename):
+    pdf_path = os.path.join(PDF_SAVE_PATH, filename)
+    ensure_directory_exists(pdf_path)
+    
+    if isinstance(pdf_data, str):
+        pdf_bytes = base64.b64decode(pdf_data)
+    else:
+        pdf_bytes = pdf_data.getvalue()
+        
+    with open(pdf_path, "wb") as pdf_file:
+        pdf_file.write(pdf_bytes)
+@shared_task
+def generate_and_save_report(backtest_data):
+    # Get base64 string from generate_pdf_report
+    pdf_base64 = generate_pdf_report(backtest_data)
+    
+    # Convert base64 string back to bytes
+    pdf_bytes = base64.b64decode(pdf_base64)
+    
+    # Create a BytesIO buffer
+    pdf_buffer = io.BytesIO(pdf_bytes)
+    
+    # Save the PDF
+    save_pdf(pdf_buffer, BACKTEST_REPORT_FILENAME)
+    
+    # Return the base64 string
+    return pdf_base64
+
+def create_pdf_response(pdf_buffer, filename):
+        response = HttpResponse(pdf_buffer, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        return response

@@ -88,8 +88,7 @@ class GenerateBacktestReportView(APIView, GenerateReportMixin):
         return None
 
     def generate_and_save_report(self, backtest_data):
-        insights_img = generate_backtest_insights(backtest_data)
-        pdf_buffer = generate_pdf_report(backtest_data, graph_image=insights_img)
+        pdf_buffer = generate_pdf_report(backtest_data)
         
         self.save_pdf(pdf_buffer, BACKTEST_REPORT_FILENAME)
         return self.create_pdf_response(pdf_buffer, BACKTEST_REPORT_FILENAME)
