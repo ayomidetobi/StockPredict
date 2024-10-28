@@ -8,5 +8,7 @@ debug.log
 /debug.log
 .vscode
 /.vscode
+/.editorconfig
+/.project.toml
 .editorconfig
-project.toml
+.project.toml
