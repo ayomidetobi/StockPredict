@@ -6,3 +6,7 @@
 venv
 debug.log
 /debug.log
+.vscode
+/.vscode
+.editorconfig
+project.toml

@@ -4,27 +4,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('StockApp', '0001_initial'),
+        ("StockApp", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='predictedstockdata',
-            name='created_at',
+            model_name="predictedstockdata",
+            name="created_at",
             field=models.BigIntegerField(),
         ),
         migrations.AddIndex(
-            model_name='stockhistorydata',
-            index=models.Index(fields=['symbol'], name='StockApp_st_symbol_91c136_idx'),
+            model_name="stockhistorydata",
+            index=models.Index(fields=["symbol"], name="StockApp_st_symbol_91c136_idx"),
         ),
         migrations.AddIndex(
-            model_name='stockhistorydata',
-            index=models.Index(fields=['timestamp'], name='StockApp_st_timesta_5cae95_idx'),
+            model_name="stockhistorydata",
+            index=models.Index(fields=["timestamp"], name="StockApp_st_timesta_5cae95_idx"),
         ),
         migrations.AddIndex(
-            model_name='stockhistorydata',
-            index=models.Index(fields=['symbol', 'timestamp'], name='StockApp_st_symbol_609ad3_idx'),
+            model_name="stockhistorydata",
+            index=models.Index(fields=["symbol", "timestamp"], name="StockApp_st_symbol_609ad3_idx"),
         ),
     ]

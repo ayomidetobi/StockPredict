@@ -23,7 +23,6 @@ ERROR_SYMBOL_STRING = "Symbol must be a string."
 MESSAGE_DATA_PROCESSING = "Data fetching for {} is now being processed in the background."
 
 
-
 class BaseStockView(APIView):
     throttle_classes = [AnonRateThrottle]
 
@@ -45,21 +44,22 @@ class BaseStockView(APIView):
                     return Response({"message": task_response["message"]}, status=status_code)
 
         except TimeoutError:
-            return Response({
-                "message": MESSAGE_DATA_PROCESSING.format(symbol),
-                "task_id": result.task_id
-            }, status=status.HTTP_202_ACCEPTED)
+            return Response(
+                {"message": MESSAGE_DATA_PROCESSING.format(symbol), "task_id": result.task_id},
+                status=status.HTTP_202_ACCEPTED,
+            )
         except CeleryError as e:
             logger.error(f"Celery task error: {str(e)}")
             return Response({"error": ERROR_CELERY_TASK_START}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        except Exception as e: 
+        except Exception as e:
             logger.error(f"Unexpected error in celery task for symbol {symbol}: {str(e)}")
             return Response({"error": ERROR_UNEXPECTED}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 class StockHistoryDataView(BaseStockView):
     def post(self, request):
         symbol = self.validate_symbol(request.data.get("symbol"))
-        
+
         if not symbol:
             return Response({"error": ERROR_SYMBOL_REQUIRED}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -70,9 +70,11 @@ class StockHistoryDataView(BaseStockView):
             logger.error(f"Unexpected error: {str(e)}")
             return Response({"error": ERROR_UNEXPECTED}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-@method_decorator(cache_page(CACHE_TIMEOUT_MINUTES), name='get')
+
+@method_decorator(cache_page(CACHE_TIMEOUT_MINUTES), name="get")
 class AllStockDataView(BaseStockView):
     pagination_class = StandardResultsSetPagination
+
     def get(self, request):
         try:
             stock_data = StockHistoryData.objects.all()
@@ -82,7 +84,8 @@ class AllStockDataView(BaseStockView):
             logger.error(f"Error fetching all stock data: {str(e)}")
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-@method_decorator(cache_page(CACHE_TIMEOUT_MINUTES), name='get')
+
+@method_decorator(cache_page(CACHE_TIMEOUT_MINUTES), name="get")
 class StockDataBySymbolView(BaseStockView):
     def get(self, request, symbol):
         symbol = self.validate_symbol(symbol)

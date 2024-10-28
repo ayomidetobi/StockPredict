@@ -12,6 +12,7 @@ from reportlab.platypus import Image
 from celery import shared_task
 import json
 from django.http import HttpResponse
+
 # Constants
 FONT_HELVETICA = "Helvetica"
 FONT_HELVETICA_BOLD = "Helvetica-Bold"
@@ -26,18 +27,20 @@ MIN_Y_POSITION = 100
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
+
 def convert_to_timestamp(item):
     try:
         if isinstance(item["timestamp"], str):
-            return int(datetime.strptime(item["timestamp"], '%Y-%m-%d').timestamp())
+            return int(datetime.strptime(item["timestamp"], "%Y-%m-%d").timestamp())
         return int(item["timestamp"])
     except (KeyError, ValueError) as e:
         logger.error(f"Error converting timestamp: {e}")
         raise ValueError(f"Invalid timestamp format in item: {item}")
 
+
 def prepare_plot_data(data):
     try:
-        dates = [datetime.fromtimestamp(convert_to_timestamp(item)).strftime('%Y-%m-%d') for item in data]
+        dates = [datetime.fromtimestamp(convert_to_timestamp(item)).strftime("%Y-%m-%d") for item in data]
         prices = [item["price"] for item in data]
         return dates, prices
     except (KeyError, ValueError) as e:
@@ -63,6 +66,7 @@ def create_plot(ax, historical_data, predicted_data):
         logger.error(f"Error creating plot: {e}")
         raise
 
+
 def save_plot_to_buffer(fig):
     try:
         img_data = io.BytesIO()
@@ -74,6 +78,7 @@ def save_plot_to_buffer(fig):
         logger.error(f"Error saving plot to buffer: {e}")
         raise
 
+
 def generate_prediction_graph(historical, predicted):
     try:
         fig, ax = plt.subplots()
@@ -82,6 +87,7 @@ def generate_prediction_graph(historical, predicted):
     except Exception as e:
         logger.error(f"Error generating prediction graph: {e}")
         raise
+
 
 def generate_backtest_insights(data):
     try:
@@ -109,12 +115,15 @@ def generate_backtest_insights(data):
         logger.error(f"Error generating backtest insights: {e}")
         raise
 
+
 def create_canvas(buffer, pagesize):
     return canvas.Canvas(buffer, pagesize=pagesize)
+
 
 def draw_title(c, title, y_position):
     c.setFont(FONT_HELVETICA_BOLD, TITLE_FONT_SIZE)
     c.drawString(MARGIN_LEFT, y_position, title)
+
 
 def draw_metrics(c, data, start_y):
     c.setFont(FONT_HELVETICA, BODY_FONT_SIZE)
@@ -125,10 +134,11 @@ def draw_metrics(c, data, start_y):
             y_position -= 20
     return y_position
 
+
 def draw_graph(c, graph_image, y_position):
     if graph_image:
         try:
-            with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as temp_file:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
                 temp_file.write(graph_image.getvalue())
                 temp_file_path = temp_file.name
             c.drawImage(temp_file_path, MARGIN_LEFT, y_position - GRAPH_HEIGHT, width=GRAPH_WIDTH, height=GRAPH_HEIGHT)
@@ -137,6 +147,7 @@ def draw_graph(c, graph_image, y_position):
         except Exception as e:
             print(f"Error adding image: {e}")
     return y_position
+
 
 def draw_messages(c, messages, start_y, height):
     try:
@@ -163,6 +174,8 @@ def draw_messages(c, messages, start_y, height):
         logger.error(f"Error drawing messages: {e}")
         c.drawString(MARGIN_LEFT, start_y - 20, f"Error drawing messages: {str(e)}")
         return start_y - 40
+
+
 @shared_task
 def generate_pdf_report(backtest_data):
     if isinstance(backtest_data, str):
@@ -192,12 +205,13 @@ def generate_pdf_report(backtest_data):
         c.save()
         buffer.seek(0)
         pdf_bytes = buffer.getvalue()
-        pdf_base64 = base64.b64encode(pdf_bytes).decode('utf-8')
-        
+        pdf_base64 = base64.b64encode(pdf_bytes).decode("utf-8")
+
         return pdf_base64
     except Exception as e:
         logger.error(f"Error generating PDF report: {e}")
         raise
+
 
 def create_pdf_report(title, graph_image):
     try:
@@ -214,44 +228,50 @@ def create_pdf_report(title, graph_image):
     except Exception as e:
         logger.error(f"Error creating PDF report: {e}")
         raise
-    
+
+
 PDF_SAVE_PATH = "reports/"
 BACKTEST_REPORT_FILENAME = "backtest_report.pdf"
 PREDICTION_REPORT_FILENAME = "prediction_report.pdf"
 HISTORICAL_DATA_DAYS = 30
 
+
 def ensure_directory_exists(path):
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+
 def save_pdf(pdf_data, filename):
     pdf_path = os.path.join(PDF_SAVE_PATH, filename)
     ensure_directory_exists(pdf_path)
-    
+
     if isinstance(pdf_data, str):
         pdf_bytes = base64.b64decode(pdf_data)
     else:
         pdf_bytes = pdf_data.getvalue()
-        
+
     with open(pdf_path, "wb") as pdf_file:
         pdf_file.write(pdf_bytes)
+
+
 @shared_task
 def generate_and_save_report(backtest_data):
     # Get base64 string from generate_pdf_report
     pdf_base64 = generate_pdf_report(backtest_data)
-    
+
     # Convert base64 string back to bytes
     pdf_bytes = base64.b64decode(pdf_base64)
-    
+
     # Create a BytesIO buffer
     pdf_buffer = io.BytesIO(pdf_bytes)
-    
+
     # Save the PDF
     save_pdf(pdf_buffer, BACKTEST_REPORT_FILENAME)
-    
+
     # Return the base64 string
     return pdf_base64
 
+
 def create_pdf_response(pdf_buffer, filename):
-        response = HttpResponse(pdf_buffer, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="{filename}"'
-        return response
+    response = HttpResponse(pdf_buffer, content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
+    return response

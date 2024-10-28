@@ -5,17 +5,19 @@ from django.utils import timezone
 from StockApp.Stocks.tasks import fetch_stock_data_from_alpha_api, save_stock_data
 from StockApp.models import StockHistoryData
 import requests
+
+
 class BaseTestCase:
     @pytest.fixture(autouse=True)
     def setup_method(self, db):
-        self.symbol = 'AAPL'
+        self.symbol = "AAPL"
         self.time_series = {
             "2023-04-14": {
                 "1. open": "100.0",
                 "2. high": "101.0",
                 "3. low": "99.0",
                 "4. close": "100.5",
-                "5. volume": "1000000"
+                "5. volume": "1000000",
             }
         }
         self.two_years_ago = timezone.now() - timedelta(days=2 * 365)
@@ -24,43 +26,43 @@ class BaseTestCase:
     @pytest.fixture
     def mock_response(self):
         mock = MagicMock()
-        mock.json.return_value = {
-            "Time Series (Daily)": self.time_series
-        }
+        mock.json.return_value = {"Time Series (Daily)": self.time_series}
         return mock
 
     @pytest.fixture
     def mock_save_stock_data(self):
-        with patch('StockApp.Stocks.tasks.save_stock_data') as mock:
+        with patch("StockApp.Stocks.tasks.save_stock_data") as mock:
             yield mock
+
 
 class TestFetchStockData(BaseTestCase):
     def test_fetch_stock_data_success(self, mock_response, mock_save_stock_data):
-        with patch('requests.get', return_value=mock_response):
+        with patch("requests.get", return_value=mock_response):
             result = fetch_stock_data_from_alpha_api(self.symbol)
-        
+
         assert result == f"Data for {self.symbol} stored successfully."
         mock_save_stock_data.assert_called_once()
 
     def test_fetch_stock_data_api_limit_reached(self, mock_response):
         mock_response.json.return_value = {"Information": "API limit reached"}
-        with patch('requests.get', return_value=mock_response):
+        with patch("requests.get", return_value=mock_response):
             result = fetch_stock_data_from_alpha_api(self.symbol)
-        
+
         assert result == {"error": "Alpha Vantage API Rate Limit Reached"}
 
     def test_fetch_stock_data_invalid_response(self, mock_response):
         mock_response.json.return_value = {"Note": "Invalid API call"}
-        with patch('requests.get', return_value=mock_response):
+        with patch("requests.get", return_value=mock_response):
             result = fetch_stock_data_from_alpha_api(self.symbol)
-        
+
         assert result == f"Error fetching data for {self.symbol}: Invalid API call"
 
     def test_fetch_stock_data_request_exception(self):
-        with patch('requests.get', side_effect=requests.RequestException("Connection error")):
+        with patch("requests.get", side_effect=requests.RequestException("Connection error")):
             result = fetch_stock_data_from_alpha_api(self.symbol)
-        
+
         assert result == "Error fetching data from Alpha API: Connection error"
+
 
 class TestSaveStockData(BaseTestCase):
     def test_save_stock_data(self):
@@ -74,7 +76,6 @@ class TestSaveStockData(BaseTestCase):
         assert saved_data.volume == 1000000
 
     def test_save_stock_data_integrity_error(self):
-
         StockHistoryData.objects.create(
             symbol=self.symbol,
             timestamp=int(datetime.strptime("2023-04-14", "%Y-%m-%d").timestamp()),
@@ -82,10 +83,9 @@ class TestSaveStockData(BaseTestCase):
             high_price=101.0,
             low_price=99.0,
             close_price=100.5,
-            volume=1000000
+            volume=1000000,
         )
 
         result = save_stock_data(self.symbol, self.time_series, self.two_years_ago_timestamp)
 
         assert result == f"Error saving data for {self.symbol}: UNIQUE constraint failed."
-

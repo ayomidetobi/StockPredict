@@ -8,6 +8,7 @@ from django.db import IntegrityError
 from django.utils import timezone
 
 from StockApp.models import StockHistoryData
+
 logger = logging.getLogger(__name__)
 API_KEY = config("API_KEY")
 BASE_URL = config("BASE_URL")

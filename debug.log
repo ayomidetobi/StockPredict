@@ -326,3 +326,129 @@ INFO 2024-10-28 00:52:37,115 autoreload Watching for file changes with StatReloa
 INFO 2024-10-28 00:52:51,686 autoreload Watching for file changes with StatReloader
 INFO 2024-10-28 00:53:18,818 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Prediction\views.py changed, reloading.
 INFO 2024-10-28 00:53:22,035 autoreload Watching for file changes with StatReloader
+DEBUG 2024-10-28 00:55:39,516 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:39,845 model Adding TBB (C:\Users\HP\Documents\python\BHTrial\venv\Lib\site-packages\prophet\stan_model\cmdstan-2.33.1\stan\lib\stan_math\lib\tbb) to PATH
+INFO 2024-10-28 00:55:40,155 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:40,163 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:40,745 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\hd9wk6_6.json
+DEBUG 2024-10-28 00:55:40,775 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\igb6aaxo.json
+DEBUG 2024-10-28 00:55:41,036 model idx 0
+DEBUG 2024-10-28 00:55:41,038 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:41,039 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=26656', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\hd9wk6_6.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\igb6aaxo.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_modelama82g5d\\prophet_model-20241028005541.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:41,041 model Chain [1] start processing
+INFO 2024-10-28 00:55:41,721 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:41,906 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:42,091 model TBB already found in load path
+INFO 2024-10-28 00:55:42,098 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:42,099 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:42,118 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\pat19ddt.json
+DEBUG 2024-10-28 00:55:42,136 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\ka5is0a3.json
+DEBUG 2024-10-28 00:55:42,138 model idx 0
+DEBUG 2024-10-28 00:55:42,138 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:42,139 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=37178', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\pat19ddt.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\ka5is0a3.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_model_a7ab0uq\\prophet_model-20241028005542.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:42,140 model Chain [1] start processing
+DEBUG 2024-10-28 00:55:42,334 command cmd: where.exe tbb.dll
+cwd: None
+INFO 2024-10-28 00:55:42,475 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:42,503 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:42,569 model TBB already found in load path
+INFO 2024-10-28 00:55:42,574 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:42,575 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:42,596 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\uoly_k3u.json
+DEBUG 2024-10-28 00:55:42,619 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\e_h_uiim.json
+DEBUG 2024-10-28 00:55:42,621 model idx 0
+DEBUG 2024-10-28 00:55:42,621 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:42,622 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=30261', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\uoly_k3u.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\e_h_uiim.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_modelihwyvqfy\\prophet_model-20241028005542.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:42,623 model Chain [1] start processing
+DEBUG 2024-10-28 00:55:42,753 model TBB already found in load path
+INFO 2024-10-28 00:55:42,758 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:42,759 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:42,774 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\1s67vp9a.json
+DEBUG 2024-10-28 00:55:42,797 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\sd37pq51.json
+DEBUG 2024-10-28 00:55:42,800 model idx 0
+DEBUG 2024-10-28 00:55:42,800 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:42,801 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=26993', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\1s67vp9a.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\sd37pq51.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_modelsllbyzj1\\prophet_model-20241028005542.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:42,802 model Chain [1] start processing
+INFO 2024-10-28 00:55:43,505 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:43,532 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:43,750 model TBB already found in load path
+INFO 2024-10-28 00:55:43,755 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:43,756 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:43,775 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\6zldvqr4.json
+INFO 2024-10-28 00:55:43,775 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:43,807 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:43,808 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\u262qbzi.json
+DEBUG 2024-10-28 00:55:43,809 model idx 0
+DEBUG 2024-10-28 00:55:43,810 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:43,815 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=23000', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\6zldvqr4.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\u262qbzi.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_modelq0w498kh\\prophet_model-20241028005543.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:43,817 model Chain [1] start processing
+INFO 2024-10-28 00:55:44,225 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:44,256 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:44,283 model TBB already found in load path
+INFO 2024-10-28 00:55:44,293 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:44,295 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:44,320 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\ai7vwqgj.json
+DEBUG 2024-10-28 00:55:44,349 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\o7efvv07.json
+DEBUG 2024-10-28 00:55:44,353 model idx 0
+DEBUG 2024-10-28 00:55:44,354 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:44,354 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=66643', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\ai7vwqgj.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\o7efvv07.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_modeljdmy5n5w\\prophet_model-20241028005544.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:44,356 model Chain [1] start processing
+DEBUG 2024-10-28 00:55:44,647 model TBB already found in load path
+INFO 2024-10-28 00:55:44,660 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:44,661 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+INFO 2024-10-28 00:55:44,660 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:44,687 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\541daiv1.json
+DEBUG 2024-10-28 00:55:44,703 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:44,706 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\nqwncf0a.json
+DEBUG 2024-10-28 00:55:44,708 model idx 0
+DEBUG 2024-10-28 00:55:44,709 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:44,709 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=25221', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\541daiv1.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\nqwncf0a.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_model5i67rlmr\\prophet_model-20241028005544.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:44,710 model Chain [1] start processing
+INFO 2024-10-28 00:55:44,827 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:44,959 model TBB already found in load path
+INFO 2024-10-28 00:55:44,978 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:44,981 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:45,019 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\56bgejst.json
+DEBUG 2024-10-28 00:55:45,055 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\q8t8ygv7.json
+DEBUG 2024-10-28 00:55:45,057 model idx 0
+DEBUG 2024-10-28 00:55:45,057 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:45,058 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=5624', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\56bgejst.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\q8t8ygv7.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_modelt0xf2lpx\\prophet_model-20241028005545.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:45,059 model Chain [1] start processing
+INFO 2024-10-28 00:55:45,246 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:45,267 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:45,505 model TBB already found in load path
+INFO 2024-10-28 00:55:45,511 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:45,512 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:45,529 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\hdjjruaa.json
+DEBUG 2024-10-28 00:55:45,553 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\0nzdv8ea.json
+DEBUG 2024-10-28 00:55:45,556 model idx 0
+DEBUG 2024-10-28 00:55:45,557 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:45,557 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=55214', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\hdjjruaa.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\0nzdv8ea.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_modeli31f6r7g\\prophet_model-20241028005545.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:45,559 model Chain [1] start processing
+INFO 2024-10-28 00:55:45,886 model Chain [1] done processing
+DEBUG 2024-10-28 00:55:45,902 command cmd: where.exe tbb.dll
+cwd: None
+DEBUG 2024-10-28 00:55:46,101 model TBB already found in load path
+INFO 2024-10-28 00:55:46,107 forecaster Disabling yearly seasonality. Run prophet with yearly_seasonality=True to override this.
+INFO 2024-10-28 00:55:46,108 forecaster Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
+DEBUG 2024-10-28 00:55:46,122 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\dbf8dxd_.json
+DEBUG 2024-10-28 00:55:46,137 filesystem input tempfile: C:\Users\HP\AppData\Local\Temp\tmp9cahflgr\ha7wwzpb.json
+DEBUG 2024-10-28 00:55:46,140 model idx 0
+DEBUG 2024-10-28 00:55:46,140 model running CmdStan, num_threads: None
+DEBUG 2024-10-28 00:55:46,141 model CmdStan args: ['C:\\Users\\HP\\Documents\\python\\BHTrial\\venv\\Lib\\site-packages\\prophet\\stan_model\\prophet_model.bin', 'random', 'seed=26329', 'data', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\dbf8dxd_.json', 'init=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\ha7wwzpb.json', 'output', 'file=C:\\Users\\HP\\AppData\\Local\\Temp\\tmp9cahflgr\\prophet_modelp4spf8fh\\prophet_model-20241028005546.csv', 'method=optimize', 'algorithm=lbfgs', 'iter=10000']
+INFO 2024-10-28 00:55:46,142 model Chain [1] start processing
+INFO 2024-10-28 00:55:46,321 model Chain [1] done processing
+INFO 2024-10-28 01:01:01,895 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Reports\views.py changed, reloading.
+INFO 2024-10-28 01:01:04,570 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 01:08:31,254 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\urls.py changed, reloading.
+INFO 2024-10-28 01:08:36,781 autoreload Watching for file changes with StatReloader
+INFO 2024-10-28 01:09:07,363 autoreload C:\Users\HP\Documents\python\BHTrial\StockApp\Backtest\tasks.py changed, reloading.
+INFO 2024-10-28 01:09:10,552 autoreload Watching for file changes with StatReloader
