@@ -55,6 +55,11 @@ The following tools and technologies power StockPredict:
 
 ---
 
+## 📊 Architecture Diagram
+
+<img src="stockpredict%20_%20Mermaid%20Chart-2025-07-04-234612.png" alt="StockPredict Architecture Diagram" width="600" height="auto">
+
+
 ## 📦 Installation
 
 ```bash
